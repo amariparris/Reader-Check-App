@@ -15,7 +15,7 @@ def authenticate_user():
             <div style="border: 2px solid red; padding: 1em; background-color: #ffe6e6;">
                 <strong>WARNING:</strong><br>
                 Unauthorized use of this application is a federal offense.<br>
-                If you are not <b>SUPERVISOR_NAME</b>, cease usage immediately.<br>
+                If you are not <b>{SUPERVISOR_NAME}</b>, cease usage immediately.<br>
                 Violators will be prosecuted to the full extent of the law.
             </div>
         """, unsafe_allow_html=True)
