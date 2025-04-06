@@ -64,3 +64,6 @@ def main():
 
             except Exception as e:
                 st.error(f"Error reading reader ID file: {e}")
+
+if __name__ == "__main__":
+    main()
