@@ -11,7 +11,7 @@ def authenticate_user():
 
     if passcode != SUPERVISOR_NAME:
         st.error("⚠️ UNAUTHORIZED ACCESS. Your activity is being logged.")
-        st.markdown("""
+        st.markdown(f"""
             <div style="border: 2px solid red; padding: 1em; background-color: #ffe6e6;">
                 <strong>WARNING:</strong><br>
                 Unauthorized use of this application is a federal offense.<br>
