@@ -46,14 +46,21 @@ def process_file(file, reader_ids):
 def main():
     if authenticate_user():
         st.header("📊 Reader Audit Tool")
+        st.markdown("📥 Upload two files: one officer report and one list of Reader IDs in a single-column Excel sheet.")
 
-        uploaded_file = st.file_uploader("Upload your .xlsx file", type=["xlsx"])
-        reader_input = st.text_input("Enter reader IDs (comma-separated)", placeholder="e.g., R017,R112,R999")
+        uploaded_file = st.file_uploader("Upload the main officer data file (.xlsx)", type=["xlsx"])
+        reader_file = st.file_uploader("Upload the reader ID list file (.xlsx)", type=["xlsx"])
 
-        if uploaded_file and reader_input:
-            reader_ids = [r.strip() for r in reader_input.split(",") if r.strip()]
-            process_file(uploaded_file, reader_ids)
+        if uploaded_file and reader_file:
+            try:
+                reader_df = pd.read_excel(reader_file)
+                # Assume the column is named 'Reader ID' or similar
+                if len(reader_df.columns) != 1:
+                    st.error("Reader file should contain exactly one column.")
+                    return
 
-# Run the app
-if __name__ == "__main__":
-    main()
+                reader_ids = reader_df.iloc[:, 0].dropna().astype(str).str.strip().tolist()
+                process_file(uploaded_file, reader_ids)
+
+            except Exception as e:
+                st.error(f"Error reading reader ID file: {e}")
